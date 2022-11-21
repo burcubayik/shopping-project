@@ -1,15 +1,13 @@
 package com.example.shoppingDemo.business.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class PropertyDto {
     private int id;

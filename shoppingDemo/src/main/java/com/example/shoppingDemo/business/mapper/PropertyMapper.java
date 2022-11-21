@@ -8,12 +8,15 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
-@Mapper()
+@Mapper(componentModel = "spring")
 public interface PropertyMapper {
+
+
     PropertyMapper INSTANCE = Mappers.getMapper(PropertyMapper.class);
     //@Named("mapFromPropertyToPropertyDto")
-    //@InheritInverseConfiguration
+   // @InheritInverseConfiguration
     Property modelTODto(Property property);
     //@Named("mapFromPropertyDtoToProperty")
+
     PropertyDto dtoTOModel(PropertyDto propertyDto);
 }
