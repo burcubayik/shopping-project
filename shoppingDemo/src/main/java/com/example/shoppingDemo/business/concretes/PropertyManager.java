@@ -8,16 +8,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-@Slf4j//bu ne?
+
 @Service
 public class PropertyManager implements PropertyService {
 
-   private final PropertyMapper propertyMapper;
-   private final PropertyRepository propertyRepository;
+   private PropertyRepository propertyRepository;
 
     @Autowired
-    public PropertyManager(PropertyMapper propertyMapper, PropertyRepository propertyRepository) {
-        this.propertyMapper = propertyMapper;
+    public PropertyManager( PropertyRepository propertyRepository) {
+
         this.propertyRepository = propertyRepository;
     }
 
@@ -25,4 +24,5 @@ public class PropertyManager implements PropertyService {
     public void add(PropertyDto propertyDto) {
 
     }
+
 }
