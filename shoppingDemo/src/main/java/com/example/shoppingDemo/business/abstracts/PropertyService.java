@@ -1,8 +1,9 @@
 package com.example.shoppingDemo.business.abstracts;
 
-import com.example.shoppingDemo.business.dtos.PropertyDto;
+
+import com.example.shoppingDemo.business.request.property.CreatePropertyRequest;
 
 public interface PropertyService {
-    void add(PropertyDto propertyDto);
+    void add(CreatePropertyRequest createPropertyRequest);
 
 }
