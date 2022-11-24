@@ -5,6 +5,7 @@ import com.example.shoppingDemo.business.request.addresses.CreateAddressRequest;
 import com.example.shoppingDemo.business.request.addresses.DeleteAddressRequest;
 import com.example.shoppingDemo.business.request.addresses.UpdateAddressRequest;
 import com.example.shoppingDemo.business.response.addresses.GetAllAddressesResponse;
+import com.example.shoppingDemo.business.response.addresses.GetByAddressResponse;
 import com.example.shoppingDemo.business.response.addresses.GetByCustomerIdAddressResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
@@ -39,6 +40,11 @@ public class AddressManager implements AddressService {
 
     @Override
     public DataResult<List<GetAllAddressesResponse>> getAll() {
+        return null;
+    }
+
+    @Override
+    public DataResult<GetByAddressResponse> getById(int id) {
         return null;
     }
 

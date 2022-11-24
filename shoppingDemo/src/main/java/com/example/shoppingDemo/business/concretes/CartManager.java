@@ -35,7 +35,7 @@ public class CartManager implements CartService {
     }
 
     @Override
-    public DataResult<GetByCartResponse> getByCustomerId(int id) {
+    public DataResult<GetByCartResponse> getById(int id) {
         return null;
     }
 }
