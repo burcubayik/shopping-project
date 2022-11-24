@@ -1,4 +1,4 @@
-package com.example.shoppingDemo.business.response.category;
+package com.example.shoppingDemo.business.response.countries;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllCategoriesResponse {
-
+public class GetAllCountriesResponse {
     private int id;
-    private int parentCategoryId;
     private String name;
-
 }

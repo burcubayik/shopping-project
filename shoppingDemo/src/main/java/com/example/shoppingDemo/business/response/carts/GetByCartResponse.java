@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetByIdCartResponse {
+public class GetByCartResponse {
     private int id;
 }

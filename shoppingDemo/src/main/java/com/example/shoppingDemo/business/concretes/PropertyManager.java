@@ -5,6 +5,9 @@ import com.example.shoppingDemo.business.request.properties.CreatePropertyReques
 import com.example.shoppingDemo.business.request.properties.DeletePropertyRequest;
 import com.example.shoppingDemo.business.request.properties.UpdatePropertyRequest;
 import com.example.shoppingDemo.business.response.properties.GetAllPropertyResponse;
+import com.example.shoppingDemo.business.response.properties.GetByPropertyResponse;
+import com.example.shoppingDemo.core.utilities.results.DataResult;
+import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.dataAccess.abstracts.PropertyRepository;
 import com.example.shoppingDemo.entities.concretes.Property;
 
@@ -25,29 +28,34 @@ public class PropertyManager implements PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
+
     @Override
-    public void add(CreatePropertyRequest createPropertyRequest) {
-        Property result= Property.builder()
+    public Result add(CreatePropertyRequest createPropertyRequest) {
+      /*  Property result= Property.builder()
                 .name(createPropertyRequest.getName())
                 .detail(createPropertyRequest.getDetail())
                 .build();
-        this.propertyRepository.save(result);
-
-    }
-
-    @Override
-    public void update(UpdatePropertyRequest updatePropertyRequest) {
-
-    }
-
-    @Override
-    public void delete(DeletePropertyRequest deletePropertyRequest) {
-
-    }
-
-    @Override
-    public List<GetAllPropertyResponse> getAll() {
+        this.propertyRepository.save(result);*/
         return null;
     }
 
+    @Override
+    public Result update(UpdatePropertyRequest updatePropertyRequest) {
+        return null;
+    }
+
+    @Override
+    public Result delete(DeletePropertyRequest deletePropertyRequest) {
+        return null;
+    }
+
+    @Override
+    public DataResult<List<GetAllPropertyResponse>> getAll() {
+        return null;
+    }
+
+    @Override
+    public DataResult<GetByPropertyResponse> getById(int id) {
+        return null;
+    }
 }

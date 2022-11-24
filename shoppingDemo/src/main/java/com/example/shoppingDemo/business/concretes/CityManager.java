@@ -1,4 +1,40 @@
 package com.example.shoppingDemo.business.concretes;
 
-public class CityManager {
+import com.example.shoppingDemo.business.abstracts.CityService;
+import com.example.shoppingDemo.business.request.cities.CreateCityRequest;
+import com.example.shoppingDemo.business.request.cities.DeleteCityRequest;
+import com.example.shoppingDemo.business.request.cities.UpdateCityRequest;
+import com.example.shoppingDemo.business.response.cities.GetAllCitiesResponse;
+import com.example.shoppingDemo.business.response.cities.GetByCityResponse;
+import com.example.shoppingDemo.core.utilities.results.DataResult;
+import com.example.shoppingDemo.core.utilities.results.Result;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
+public class CityManager implements CityService {
+    @Override
+    public Result add(CreateCityRequest createCityRequest) {
+        return null;
+    }
+
+    @Override
+    public Result update(UpdateCityRequest updateCityRequest) {
+        return null;
+    }
+
+    @Override
+    public Result delete(DeleteCityRequest deleteCityRequest) {
+        return null;
+    }
+
+    @Override
+    public DataResult<List<GetAllCitiesResponse>> getAll() {
+        return null;
+    }
+
+    @Override
+    public DataResult<GetByCityResponse> getById(int id) {
+        return null;
+    }
 }
