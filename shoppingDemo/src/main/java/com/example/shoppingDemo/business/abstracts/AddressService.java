@@ -1,10 +1,10 @@
 package com.example.shoppingDemo.business.abstracts;
 
-import com.example.shoppingDemo.business.request.address.CreateAddressRequest;
-import com.example.shoppingDemo.business.request.address.DeleteAddressRequest;
-import com.example.shoppingDemo.business.request.address.UpdateAddressRequest;
-import com.example.shoppingDemo.business.response.address.GetAllAddressesResponse;
-import com.example.shoppingDemo.business.response.address.GetByCustomerIdAddressResponse;
+import com.example.shoppingDemo.business.request.addresses.CreateAddressRequest;
+import com.example.shoppingDemo.business.request.addresses.DeleteAddressRequest;
+import com.example.shoppingDemo.business.request.addresses.UpdateAddressRequest;
+import com.example.shoppingDemo.business.response.addresses.GetAllAddressesResponse;
+import com.example.shoppingDemo.business.response.addresses.GetByCustomerIdAddressResponse;
 
 import java.util.List;
 

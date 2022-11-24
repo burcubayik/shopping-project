@@ -1,7 +1,7 @@
 package com.example.shoppingDemo.api.controllers;
 
 import com.example.shoppingDemo.business.abstracts.PropertyService;
-import com.example.shoppingDemo.business.request.property.CreatePropertyRequest;
+import com.example.shoppingDemo.business.request.properties.CreatePropertyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
