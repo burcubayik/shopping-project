@@ -34,7 +34,7 @@ public class CountryManager implements CountryService {
     }
 
     @Override
-    public DataResult<GetByCountryResponse> getById(int corporateCustomerId) {
+    public DataResult<GetByCountryResponse> getById(int id) {
         return null;
     }
 }

@@ -16,5 +16,5 @@ public interface CountryService {
     Result update(UpdateCountryRequest updateCountryRequest);
     Result delete(DeleteCountryRequest deleteCountryRequest);
     DataResult<List<GetAllCountriesResponse>> getAll();
-    DataResult<GetByCountryResponse> getById(int corporateCustomerId);
+    DataResult<GetByCountryResponse> getById(int id);
 }
