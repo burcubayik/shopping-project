@@ -12,9 +12,6 @@ import java.util.List;
 
 public interface CityService {
 
-    Result add(CreateCityRequest createCityRequest);
-    Result update(UpdateCityRequest updateCityRequest);
-    Result delete(DeleteCityRequest deleteCityRequest);
     DataResult<List<GetAllCitiesResponse>> getAll();
     DataResult<GetByCityResponse> getById(int id);
 }

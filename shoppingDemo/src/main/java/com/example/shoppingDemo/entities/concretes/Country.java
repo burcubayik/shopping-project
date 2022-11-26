@@ -19,6 +19,7 @@ public class Country {
     private int id;
     @Column(name = "name")
     private String name;
+
     @OneToMany(mappedBy = "country")
-    private List<Address> addresses;
+    private List<City> cities;
 }
