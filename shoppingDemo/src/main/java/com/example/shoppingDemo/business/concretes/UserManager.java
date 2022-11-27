@@ -8,11 +8,18 @@ import com.example.shoppingDemo.business.response.users.GetAllUserResponse;
 import com.example.shoppingDemo.business.response.users.GeyByUserResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
+import com.example.shoppingDemo.dataAccess.abstracts.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class UserManager implements UserService {
+    UserRepository userRepository;
+
+    public UserManager(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public Result add(CreateUserRequest createUserRequest) {
         return null;
@@ -28,13 +35,4 @@ public class UserManager implements UserService {
         return null;
     }
 
-    @Override
-    public DataResult<List<GetAllUserResponse>> getAll() {
-        return null;
-    }
-
-    @Override
-    public DataResult<GeyByUserResponse> getById(int id) {
-        return null;
-    }
 }

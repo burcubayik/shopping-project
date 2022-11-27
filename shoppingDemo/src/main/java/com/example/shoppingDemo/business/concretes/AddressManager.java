@@ -9,7 +9,10 @@ import com.example.shoppingDemo.business.response.addresses.GetByAddressResponse
 import com.example.shoppingDemo.business.response.addresses.GetByCustomerIdAddressResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
+import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
 import com.example.shoppingDemo.dataAccess.abstracts.AddressRepository;
+import com.example.shoppingDemo.entities.concretes.Address;
+import com.example.shoppingDemo.entities.concretes.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,12 +43,20 @@ public class AddressManager implements AddressService {
 
     @Override
     public DataResult<List<GetAllAddressesResponse>> getAll() {
+        //sorgu yazılafcak customer
+        List<Address> result=this.addressRepository.findAll();
+
+
         return null;
     }
 
     @Override
     public DataResult<GetByAddressResponse> getById(int id) {
-        return null;
+        Address result=this.addressRepository.findById(id).get();
+        GetByAddressResponse response=GetByAddressResponse.builder()
+        .id(result.getId())
+                .build();
+        return  new SuccessDataResult<>(response);
     }
 
     @Override
