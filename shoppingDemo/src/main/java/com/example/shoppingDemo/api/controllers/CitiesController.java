@@ -25,20 +25,7 @@ public class CitiesController {
         this.cityService = cityService;
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody CreateCityRequest createCityRequest) {
-        return this.cityService.add(createCityRequest);
-    }
 
-    @PutMapping("/update")
-    public Result update(@RequestBody UpdateCityRequest updateCityRequest) {
-        return this.cityService.update(updateCityRequest);
-    }
-
-    @DeleteMapping("/delete")
-    public Result delete(@RequestBody DeleteCityRequest deleteCityRequest) {
-        return this.cityService.delete(deleteCityRequest);
-    }
 
     @GetMapping("/getall")
     public DataResult<List<GetAllCitiesResponse>> getAll() {
