@@ -4,10 +4,12 @@ import com.example.shoppingDemo.business.abstracts.PropertyService;
 import com.example.shoppingDemo.business.request.properties.CreatePropertyRequest;
 import com.example.shoppingDemo.business.request.properties.DeletePropertyRequest;
 import com.example.shoppingDemo.business.request.properties.UpdatePropertyRequest;
+import com.example.shoppingDemo.business.response.categories.GetByCategoryResponse;
 import com.example.shoppingDemo.business.response.properties.GetAllPropertyResponse;
 import com.example.shoppingDemo.business.response.properties.GetByPropertyResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
+import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
 import com.example.shoppingDemo.dataAccess.abstracts.PropertyRepository;
 import com.example.shoppingDemo.entities.concretes.Property;
 
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyManager implements PropertyService {
@@ -51,11 +54,21 @@ public class PropertyManager implements PropertyService {
 
     @Override
     public DataResult<List<GetAllPropertyResponse>> getAll() {
-        return null;
+        List<Property> result = this.propertyRepository.findAll();
+        List<GetAllPropertyResponse> response = result.stream().map(property -> GetAllPropertyResponse.builder()
+                .name(property.getName())
+                .detail(property.getDetail())
+                .build()).collect(Collectors.toList());
+        return new SuccessDataResult<>(response);
     }
 
     @Override
     public DataResult<GetByPropertyResponse> getById(int id) {
-        return null;
+        Property result = this.propertyRepository.findById(id).get();
+        GetByPropertyResponse response = GetByPropertyResponse.builder()
+                .name(result.getName())
+                .detail(result.getDetail())
+                .build();
+        return new SuccessDataResult<>(response);
     }
 }
