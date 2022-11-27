@@ -35,6 +35,10 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public DataResult<GetByCustomerResponse> getById(int customerId) {
-        return null;
+        Customer result=this.customerRepository.findById(customerId).get();
+        GetByCustomerResponse response=GetByCustomerResponse.builder()
+                .customerId(result.getCustomerId())
+                .build();
+        return new SuccessDataResult<>(response);
     }
 }
