@@ -8,11 +8,23 @@ import com.example.shoppingDemo.business.response.products.GetAllProductsRespons
 import com.example.shoppingDemo.business.response.products.GetByProductResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
+import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.dataAccess.abstracts.ProductRepository;
+import com.example.shoppingDemo.entities.concretes.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProductManager implements ProductService {
+    ProductRepository productRepository;
+    @Autowired
+    public ProductManager(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     @Override
     public Result add(CreateProductRequest createProductRequest) {
         return null;
@@ -30,11 +42,29 @@ public class ProductManager implements ProductService {
 
     @Override
     public DataResult<List<GetAllProductsResponse>> getAll() {
-        return null;
+        List<Product> result = this.productRepository.findAll();
+        List<GetAllProductsResponse> response = result.stream().map(product -> GetAllProductsResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .detail(product.getDetail())
+                .unitPrice(product.getUnitPrice())
+                .supplierId(product.getSupplier().getId())
+                .categoryId(product.getCategory().getId())
+                .build()).collect(Collectors.toList());
+
+        return new SuccessDataResult<>(response);
     }
 
     @Override
     public DataResult<GetByProductResponse> getById(int id) {
-        return null;
+        Product result = this.productRepository.findById(id).get();
+        GetByProductResponse response = GetByProductResponse.builder()
+                .name(result.getName())
+                .detail(result.getDetail())
+                .unitPrice(result.getUnitPrice())
+                .supplierId(result.getSupplier().getId())
+                .categoryId(result.getCategory().getId())
+                .build();
+        return new SuccessDataResult<>(response);
     }
 }
