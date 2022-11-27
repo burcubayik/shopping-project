@@ -12,9 +12,6 @@ import com.example.shoppingDemo.core.utilities.results.Result;
 import java.util.List;
 
 public interface CountryService {
-    Result add(CreateCountryRequest createCountryRequest);
-    Result update(UpdateCountryRequest updateCountryRequest);
-    Result delete(DeleteCountryRequest deleteCountryRequest);
     DataResult<List<GetAllCountriesResponse>> getAll();
     DataResult<GetByCountryResponse> getById(int id);
 }

@@ -24,21 +24,6 @@ public class CountriesController {
         this.countryService = countryService;
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody CreateCountryRequest createCountryRequest) {
-        return this.countryService.add(createCountryRequest);
-    }
-
-    @PutMapping("/update")
-    public Result update(@RequestBody UpdateCountryRequest updateCountryRequest) {
-        return this.countryService.update(updateCountryRequest);
-    }
-
-    @DeleteMapping("/delete")
-    public Result delete(@RequestBody DeleteCountryRequest deleteCountryRequest) {
-        return this.countryService.delete(deleteCountryRequest);
-    }
-
     @GetMapping("/getall")
     public DataResult<List<GetAllCountriesResponse>> getAll() {
         return this.countryService.getAll();
