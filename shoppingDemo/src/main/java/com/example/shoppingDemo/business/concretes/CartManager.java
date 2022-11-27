@@ -8,11 +8,24 @@ import com.example.shoppingDemo.business.response.carts.GetAllCartsResponse;
 import com.example.shoppingDemo.business.response.carts.GetByCartResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
+import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.dataAccess.abstracts.CartRepository;
+import com.example.shoppingDemo.entities.concretes.Cart;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CartManager implements CartService {
+
+    @Autowired
+    CartRepository cartRepository;
+
+    public CartManager(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
+    }
 
     @Override
     public Result add(CreateCartRequest createCartRequest) {
@@ -31,11 +44,21 @@ public class CartManager implements CartService {
 
     @Override
     public DataResult<List<GetAllCartsResponse>> getAll() {
-        return null;
+        List<Cart> result=this.cartRepository.findAll();
+        List<GetAllCartsResponse> response=result.stream().map(cart -> GetAllCartsResponse.builder()
+                .id(cart.getId())
+                .customerId(cart.getCustomer().getCustomerId())
+                .productId(cart.getProduct().getId())
+                .build()).collect(Collectors.toList());
+
+        return new SuccessDataResult<>(response);
     }
 
     @Override
     public DataResult<GetByCartResponse> getById(int id) {
-        return null;
+        Cart result=this.cartRepository.findById(id).get();
+        GetByCartResponse response=GetByCartResponse.builder()
+                .id(result.getId()).build();
+        return new SuccessDataResult<>(response);
     }
 }
