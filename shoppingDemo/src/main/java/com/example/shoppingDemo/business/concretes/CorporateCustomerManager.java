@@ -8,12 +8,25 @@ import com.example.shoppingDemo.business.response.corporateCustomers.GetAllCorpo
 import com.example.shoppingDemo.business.response.corporateCustomers.GetByCorporateCustomerResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
+import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.dataAccess.abstracts.CorporateCustomerRepository;
+import com.example.shoppingDemo.entities.concretes.CorporateCustomer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CorporateCustomerManager implements CorporateCustomerService {
+
+    @Autowired
+    CorporateCustomerRepository corporateCustomerRepository;
+
+    public CorporateCustomerManager(CorporateCustomerRepository corporateCustomerRepository) {
+        this.corporateCustomerRepository = corporateCustomerRepository;
+    }
+
     @Override
     public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
         return null;
@@ -31,11 +44,21 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
     @Override
     public DataResult<List<GetAllCorporateCustomersResponse>> getAll() {
-        return null;
+        List<CorporateCustomer> result=this.corporateCustomerRepository.findAll();
+        List<GetAllCorporateCustomersResponse> response=result.stream().map(corporateCustomer -> GetAllCorporateCustomersResponse.builder()
+                .corporateCustomerId(corporateCustomer.getCorporateCustomerId())
+                .taxNumber(corporateCustomer.getTaxNumber())
+                .companyName(corporateCustomer.getCompanyName())
+                .build()).collect(Collectors.toList());
+        return  new SuccessDataResult<>(response);
     }
 
     @Override
     public DataResult<GetByCorporateCustomerResponse> getById(int corporateCustomerId) {
-        return null;
+        CorporateCustomer result=this.corporateCustomerRepository.findById(corporateCustomerId).get();
+        GetByCorporateCustomerResponse response=GetByCorporateCustomerResponse.builder()
+                .corporateCustomerId(result.getCorporateCustomerId())
+                .build();
+        return new SuccessDataResult<>(response);
     }
 }
