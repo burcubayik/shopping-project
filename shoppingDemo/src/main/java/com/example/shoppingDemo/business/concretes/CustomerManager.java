@@ -8,11 +8,20 @@ import com.example.shoppingDemo.business.response.customers.GetAllCustomersRespo
 import com.example.shoppingDemo.business.response.customers.GetByCustomerResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
+import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.dataAccess.abstracts.CustomerRepository;
+import com.example.shoppingDemo.entities.concretes.Customer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CustomerManager implements CustomerService {
+    CustomerRepository customerRepository;
+    public CustomerManager(CustomerRepository customerRepository){
+        this.customerRepository=customerRepository;
+    }
     @Override
     public Result add(CreateCustomerRequest createCustomerRequest) {
         return null;
@@ -30,7 +39,12 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public DataResult<List<GetAllCustomersResponse>> getAll() {
-        return null;
+        List<Customer> result =this.customerRepository.findAll();
+        List<GetAllCustomersResponse> response = result.stream().map(customer -> GetAllCustomersResponse.builder()
+                .customerId(customer.getCustomerId())
+                .customerNumber(customer.getCustomerNumber())
+                .build()).collect(Collectors.toList());
+        return new SuccessDataResult<>(response);
     }
 
     @Override
