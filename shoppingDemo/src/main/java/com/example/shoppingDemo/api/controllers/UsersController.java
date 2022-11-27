@@ -36,14 +36,4 @@ public class UsersController {
     public Result delete(@RequestBody DeleteUserRequest deleteUserRequest) {
         return this.userService.delete(deleteUserRequest);
     }
-
-    @GetMapping("/getall")
-    public DataResult<List<GetAllUserResponse>> getAll() {
-        return this.userService.getAll();
-    }
-
-    @GetMapping("/getbyid")
-    public DataResult<GeyByUserResponse> getById(@RequestParam int id) {
-        return this.userService.getById(id);
-    }
 }
