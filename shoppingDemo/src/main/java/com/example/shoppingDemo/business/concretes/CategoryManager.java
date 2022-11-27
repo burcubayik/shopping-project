@@ -8,12 +8,23 @@ import com.example.shoppingDemo.business.response.categories.GetAllCategoriesRes
 import com.example.shoppingDemo.business.response.categories.GetByCategoryResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
+import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.dataAccess.abstracts.CategoryRepository;
+import com.example.shoppingDemo.entities.concretes.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryManager implements CategoryService {
+    CategoryRepository categoryRepository;
+    @Autowired
+    public CategoryManager(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
     @Override
     public Result add(CreateCategoryRequest createCategoryRequest) {
         return null;
@@ -31,11 +42,21 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public DataResult<List<GetAllCategoriesResponse>> getAll() {
-        return null;
+        List<Category> result = this.categoryRepository.findAll();
+        List<GetAllCategoriesResponse> response = result.stream().map(category -> GetAllCategoriesResponse.builder()
+                .parentCategoryId(category.getParentCategory().getId())
+                .name(category.getName())
+                .build()).collect(Collectors.toList());
+        return new SuccessDataResult<>(response);
     }
 
     @Override
     public DataResult<GetByCategoryResponse> getById(int id) {
-        return null;
+        Category result = this.categoryRepository.findById(id).get();
+        GetByCategoryResponse response = GetByCategoryResponse.builder()
+                .name(result.getName())
+                .build();
+
+        return new SuccessDataResult<>(response);
     }
 }
