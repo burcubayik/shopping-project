@@ -21,4 +21,10 @@ public class City {
     @OneToMany(mappedBy = "city")
     private List<Address> addresses;
 
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+
+
+
 }
