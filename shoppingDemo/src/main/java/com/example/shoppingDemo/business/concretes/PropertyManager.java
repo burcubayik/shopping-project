@@ -10,6 +10,7 @@ import com.example.shoppingDemo.business.response.properties.GetByPropertyRespon
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.PropertyRepository;
 import com.example.shoppingDemo.entities.concretes.Property;
 
@@ -34,12 +35,12 @@ public class PropertyManager implements PropertyService {
 
     @Override
     public Result add(CreatePropertyRequest createPropertyRequest) {
-      /*  Property result= Property.builder()
+       Property result= Property.builder()
                 .name(createPropertyRequest.getName())
                 .detail(createPropertyRequest.getDetail())
                 .build();
-        this.propertyRepository.save(result);*/
-        return null;
+        this.propertyRepository.save(result);
+        return new SuccessResult("Added Property");
     }
 
     @Override
