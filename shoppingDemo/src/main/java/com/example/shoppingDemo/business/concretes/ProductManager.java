@@ -9,8 +9,11 @@ import com.example.shoppingDemo.business.response.products.GetByProductResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.ProductRepository;
+import com.example.shoppingDemo.entities.concretes.Category;
 import com.example.shoppingDemo.entities.concretes.Product;
+import com.example.shoppingDemo.entities.concretes.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +30,17 @@ public class ProductManager implements ProductService {
 
     @Override
     public Result add(CreateProductRequest createProductRequest) {
-        return null;
+        Category category=this.productRepository.getByCategory_Id(createProductRequest.getCategoryId());
+        Supplier supplier=this.productRepository.getBySupplierId(createProductRequest.getSupplierId());
+        Product product=Product.builder()
+                .name(createProductRequest.getName())
+                .detail(createProductRequest.getDetail())
+                .unitPrice(createProductRequest.getUnitPrice())
+                .category(category)
+                .supplier(supplier)
+                .build();
+        this.productRepository.save(product);
+        return new SuccessResult("PRODUCT.ADDED");
     }
 
     @Override

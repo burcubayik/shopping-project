@@ -10,9 +10,12 @@ import com.example.shoppingDemo.business.response.addresses.GetByCustomerIdAddre
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.AddressRepository;
 import com.example.shoppingDemo.entities.concretes.Address;
+import com.example.shoppingDemo.entities.concretes.City;
 import com.example.shoppingDemo.entities.concretes.Customer;
+import com.example.shoppingDemo.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +31,23 @@ public class AddressManager implements AddressService {
 
     @Override
     public Result add(CreateAddressRequest createAddressRequest) {
-        return null;
+        User user=this.addressRepository.getByUserId(createAddressRequest.getUserId());
+        City city=this.addressRepository.getByCity_Id(createAddressRequest.getCityId());
+
+        Address address=Address.builder()
+                .detail(createAddressRequest.getDetail())
+                .user(user)
+                .city(city)
+                        .build();
+                this.addressRepository.save(address);
+
+        return new SuccessResult("ADDRESS.ADDED");
     }
 
     @Override
     public Result update(UpdateAddressRequest updateAddressRequest) {
+
+
         return null;
     }
 

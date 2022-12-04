@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface CityService {
 
+
+
     DataResult<List<GetAllCitiesResponse>> getAll();
     DataResult<GetByCityResponse> getById(int id);
 }

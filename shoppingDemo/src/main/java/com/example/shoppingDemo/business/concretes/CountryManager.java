@@ -25,6 +25,7 @@ public class CountryManager implements CountryService {
         this.countryRepository = countryRepository;
     }
 
+    //ÜLKE DIŞARDAN EKLENİYOR.
     @Override
     public DataResult<List<GetAllCountriesResponse>> getAll() {
         List<Country> result = this.countryRepository.findAll();

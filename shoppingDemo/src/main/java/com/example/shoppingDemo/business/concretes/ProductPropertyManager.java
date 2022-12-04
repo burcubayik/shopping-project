@@ -9,8 +9,11 @@ import com.example.shoppingDemo.business.response.productProperties.GetByProduct
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.ProductPropertyRepository;
+import com.example.shoppingDemo.entities.concretes.Product;
 import com.example.shoppingDemo.entities.concretes.ProductProperty;
+import com.example.shoppingDemo.entities.concretes.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +30,14 @@ public class ProductPropertyManager implements ProductPropertyService {
 
     @Override
     public Result add(CreateProductPropertyRequest createProductPropertyRequest) {
-        return null;
+        Property property=this.productPropertyRepository.getByPropertyId(createProductPropertyRequest.getPropertyId());
+        Product product=this.productPropertyRepository.getByProduct_Id(createProductPropertyRequest.getProductId());
+        ProductProperty productProperty=ProductProperty.builder()
+                .product(product)
+                .property(property)
+                .build();
+        this.productPropertyRepository.save(productProperty);
+        return new SuccessResult("PRODUCT.PROPERTY.ADDED");
     }
 
     @Override
