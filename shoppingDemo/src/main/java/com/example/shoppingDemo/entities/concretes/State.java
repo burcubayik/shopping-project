@@ -1,7 +1,6 @@
 package com.example.shoppingDemo.entities.concretes;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,19 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "suppliers")
-@Builder
-public class Supplier extends User{
+@Table(name="states")
+public class State {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "point")
-    private double point;
-    @OneToMany(mappedBy = "supplier")
-    private List<Product> products;
-
-
+    @OneToMany(mappedBy = "state")
+    private List<User> users;
 }

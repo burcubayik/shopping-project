@@ -1,6 +1,7 @@
 package com.example.shoppingDemo.entities.concretes;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +24,9 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @ManyToOne()
+    @JoinColumn(name = "state_id")
+    private State state;
     @OneToMany(mappedBy = "user")
     private List<Address> addresses;
 }

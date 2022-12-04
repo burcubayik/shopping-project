@@ -1,6 +1,7 @@
 package com.example.shoppingDemo.business.concretes;
 
 import com.example.shoppingDemo.business.abstracts.SupplierService;
+import com.example.shoppingDemo.business.abstracts.UserService;
 import com.example.shoppingDemo.business.request.suppliers.CreateSupplierRequest;
 import com.example.shoppingDemo.business.request.suppliers.DeleteSupplierRequest;
 import com.example.shoppingDemo.business.request.suppliers.UpdateSupplierRequest;
@@ -9,6 +10,7 @@ import com.example.shoppingDemo.business.response.suppliers.GetBySupplierRespons
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.SupplierRepository;
 import com.example.shoppingDemo.entities.concretes.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +21,23 @@ import java.util.stream.Collectors;
 
 @Service
 public class SupplierManager implements SupplierService {
-    SupplierRepository supplierRepository;
+    private SupplierRepository supplierRepository;
+    private UserService userService;
     @Autowired
-    public SupplierManager(SupplierRepository supplierRepository) {
+    public SupplierManager(SupplierRepository supplierRepository,UserService userService) {
         this.supplierRepository = supplierRepository;
+        this.userService= userService;
     }
 
     @Override
     public Result add(CreateSupplierRequest createSupplierRequest) {
-        return null;
+        this.userService.add(createSupplierRequest.getCreateUserRequest());
+        Supplier supplier = Supplier.builder()
+                .name(createSupplierRequest.getName())
+                .point(createSupplierRequest.getPoint())
+                .build();
+        this.supplierRepository.save(supplier);
+        return new SuccessResult("Added Supplier");
     }
 
     @Override
