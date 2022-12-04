@@ -9,6 +9,7 @@ import com.example.shoppingDemo.business.response.individualCustomers.GetByIndiv
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.IndividualCustomerRepository;
 import com.example.shoppingDemo.entities.concretes.IndividualCustomer;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,15 @@ public class IndividualCustomerManager implements IndividualCustomerService {
     }
     @Override
     public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
-        return null;
+        IndividualCustomer individualCustomer=IndividualCustomer.builder()
+                .nationalityId(createIndividualCustomerRequest.getNationalityId())
+                .firstName(createIndividualCustomerRequest.getFirstName())
+                .lastName(createIndividualCustomerRequest.getLastName())
+                .birthDate(createIndividualCustomerRequest.getBirthDate())
+                .gender(createIndividualCustomerRequest.getGender())
+                .build();
+        this.individualCustomerRepository.save(individualCustomer);
+        return new SuccessResult("INDIVIDUAL.CUSTOMER.ADDED");
     }
 
     @Override

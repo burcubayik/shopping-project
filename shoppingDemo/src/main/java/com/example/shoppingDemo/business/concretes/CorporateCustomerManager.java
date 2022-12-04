@@ -9,6 +9,7 @@ import com.example.shoppingDemo.business.response.corporateCustomers.GetByCorpor
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.CorporateCustomerRepository;
 import com.example.shoppingDemo.entities.concretes.CorporateCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,12 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
     @Override
     public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
-        return null;
+        CorporateCustomer corporateCustomer=CorporateCustomer.builder()
+                .taxNumber(createCorporateCustomerRequest.getTaxNumber())
+                .companyName(createCorporateCustomerRequest.getCompanyName())
+                .build();
+        this.corporateCustomerRepository.save(corporateCustomer);
+        return new SuccessResult("CORPORATE.CUSTOMER.ADDED");
     }
 
     @Override

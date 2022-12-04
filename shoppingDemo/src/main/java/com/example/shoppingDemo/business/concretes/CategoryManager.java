@@ -9,6 +9,7 @@ import com.example.shoppingDemo.business.response.categories.GetByCategoryRespon
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.CategoryRepository;
 import com.example.shoppingDemo.entities.concretes.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,14 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public Result add(CreateCategoryRequest createCategoryRequest) {
-        return null;
+        Category parentCategory=this.categoryRepository.getByParentCategoryId(createCategoryRequest.getParentCategoryId());
+        Category category=Category.builder()
+                .parentCategory(parentCategory)
+                .name(createCategoryRequest.getName())
+                .build();
+        this.categoryRepository.save(category);
+
+        return new SuccessResult("CATEGORY.ADDED");
     }
 
     @Override

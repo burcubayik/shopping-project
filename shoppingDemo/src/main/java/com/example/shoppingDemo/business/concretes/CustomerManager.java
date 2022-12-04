@@ -9,6 +9,7 @@ import com.example.shoppingDemo.business.response.customers.GetByCustomerRespons
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.CustomerRepository;
 import com.example.shoppingDemo.entities.concretes.Customer;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,11 @@ public class CustomerManager implements CustomerService {
     }
     @Override
     public Result add(CreateCustomerRequest createCustomerRequest) {
-        return null;
+        Customer customer=Customer.builder()
+                .customerNumber(createCustomerRequest.getCustomerNumber())
+                .build();
+        this.customerRepository.save(customer);
+        return new SuccessResult("CUSTOMER.ADDED");
     }
 
     @Override

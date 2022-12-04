@@ -9,8 +9,11 @@ import com.example.shoppingDemo.business.response.carts.GetByCartResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
+import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.CartRepository;
 import com.example.shoppingDemo.entities.concretes.Cart;
+import com.example.shoppingDemo.entities.concretes.Customer;
+import com.example.shoppingDemo.entities.concretes.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +32,17 @@ public class CartManager implements CartService {
 
     @Override
     public Result add(CreateCartRequest createCartRequest) {
-        return null;
+
+        Customer customer =this.cartRepository.getByCustomerId(createCartRequest.getCustomerId());
+        Product product=this.cartRepository.getByProduct_Id(createCartRequest.getProductId());
+        Cart cart=Cart.builder()
+                .customer(customer)
+                .product(product)
+                .build();
+
+        this.cartRepository.save(cart);
+
+        return new SuccessResult("CART.ADDED");
     }
 
     @Override

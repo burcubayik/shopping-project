@@ -1,9 +1,6 @@
 package com.example.shoppingDemo.entities.concretes;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +11,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "corporate_customers")
 @PrimaryKeyJoinColumn(name = "corporate_customer_id", referencedColumnName = "customer_id")
 @EqualsAndHashCode(callSuper = true)
