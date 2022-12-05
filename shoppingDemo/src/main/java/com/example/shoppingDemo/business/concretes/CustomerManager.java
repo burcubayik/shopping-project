@@ -1,6 +1,7 @@
 package com.example.shoppingDemo.business.concretes;
 
 import com.example.shoppingDemo.business.abstracts.CustomerService;
+import com.example.shoppingDemo.business.abstracts.UserService;
 import com.example.shoppingDemo.business.request.customers.CreateCustomerRequest;
 import com.example.shoppingDemo.business.request.customers.DeleteCustomerRequest;
 import com.example.shoppingDemo.business.request.customers.UpdateCustomerRequest;
@@ -19,12 +20,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class CustomerManager implements CustomerService {
-    CustomerRepository customerRepository;
-    public CustomerManager(CustomerRepository customerRepository){
+    private CustomerRepository customerRepository;
+    private UserService userService;
+
+    public CustomerManager(CustomerRepository customerRepository,UserService userService){
         this.customerRepository=customerRepository;
+        this.userService = userService;
     }
     @Override
     public Result add(CreateCustomerRequest createCustomerRequest) {
+        this.userService.add(createCustomerRequest.getCreateUserRequest());
         Customer customer=Customer.builder()
                 .customerNumber(createCustomerRequest.getCustomerNumber())
                 .build();
