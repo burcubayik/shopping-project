@@ -1,6 +1,7 @@
 package com.example.shoppingDemo.business.concretes;
 
 import com.example.shoppingDemo.business.abstracts.CorporateCustomerService;
+import com.example.shoppingDemo.business.abstracts.CustomerService;
 import com.example.shoppingDemo.business.request.corporateCustomers.CreateCorporateCustomerRequest;
 import com.example.shoppingDemo.business.request.corporateCustomers.DeleteCorporateCustomerResquest;
 import com.example.shoppingDemo.business.request.corporateCustomers.UpdateCorporateCustomerRequest;
@@ -22,14 +23,17 @@ import java.util.stream.Collectors;
 public class CorporateCustomerManager implements CorporateCustomerService {
 
     @Autowired
-    CorporateCustomerRepository corporateCustomerRepository;
+    private CorporateCustomerRepository corporateCustomerRepository;
+    private CustomerService customerService;
 
-    public CorporateCustomerManager(CorporateCustomerRepository corporateCustomerRepository) {
+    public CorporateCustomerManager(CorporateCustomerRepository corporateCustomerRepository,CustomerService customerService) {
         this.corporateCustomerRepository = corporateCustomerRepository;
+        this.customerService=customerService;
     }
 
     @Override
     public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
+        this.customerService.add(createCorporateCustomerRequest.getCreateCustomerRequest()); //corporateCustomer--customer
         CorporateCustomer corporateCustomer=CorporateCustomer.builder()
                 .taxNumber(createCorporateCustomerRequest.getTaxNumber())
                 .companyName(createCorporateCustomerRequest.getCompanyName())
