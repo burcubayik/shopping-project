@@ -21,4 +21,7 @@ public class State {
     private String name;
     @OneToMany(mappedBy = "state")
     private List<User> users;
+
+    @OneToMany(mappedBy="state")
+    private List<Address> addresses;
 }

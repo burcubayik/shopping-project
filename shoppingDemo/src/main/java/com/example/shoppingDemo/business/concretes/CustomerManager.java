@@ -29,7 +29,7 @@ public class CustomerManager implements CustomerService {
     }
     @Override
     public Result add(CreateCustomerRequest createCustomerRequest) {
-        this.userService.add(createCustomerRequest.getCreateUserRequest());
+        this.userService.add(createCustomerRequest.getCreateUserRequest());  //customer userServis **
         Customer customer=Customer.builder()
                 .customerNumber(createCustomerRequest.getCustomerNumber())
                 .build();
