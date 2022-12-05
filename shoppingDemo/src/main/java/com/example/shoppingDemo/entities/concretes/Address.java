@@ -27,4 +27,8 @@ public class Address {
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne()
+    @JoinColumn(name="state_id")
+    private State state;
 }
