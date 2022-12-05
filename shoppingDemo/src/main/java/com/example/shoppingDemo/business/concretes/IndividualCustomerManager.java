@@ -1,5 +1,6 @@
 package com.example.shoppingDemo.business.concretes;
 
+import com.example.shoppingDemo.business.abstracts.CustomerService;
 import com.example.shoppingDemo.business.abstracts.IndividualCustomerService;
 import com.example.shoppingDemo.business.request.individualCustomers.CreateIndividualCustomerRequest;
 import com.example.shoppingDemo.business.request.individualCustomers.DeleteIndividualCustomerRequest;
@@ -19,12 +20,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class IndividualCustomerManager implements IndividualCustomerService {
-    IndividualCustomerRepository individualCustomerRepository;
-    public IndividualCustomerManager(IndividualCustomerRepository individualCustomerRepository){
+    private IndividualCustomerRepository individualCustomerRepository;
+    private CustomerService customerService;
+    public IndividualCustomerManager(IndividualCustomerRepository individualCustomerRepository,CustomerService customerService){
         this.individualCustomerRepository=individualCustomerRepository;
+        this.customerService = customerService;
     }
     @Override
     public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
+        this.customerService.add(createIndividualCustomerRequest.getCreateCustomerRequest());
         IndividualCustomer individualCustomer=IndividualCustomer.builder()
                 .nationalityId(createIndividualCustomerRequest.getNationalityId())
                 .firstName(createIndividualCustomerRequest.getFirstName())
