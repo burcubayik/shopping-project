@@ -2,6 +2,7 @@ package com.example.shoppingDemo.business.concretes;
 
 import com.example.shoppingDemo.business.abstracts.CustomerService;
 import com.example.shoppingDemo.business.abstracts.IndividualCustomerService;
+import com.example.shoppingDemo.business.abstracts.StateService;
 import com.example.shoppingDemo.business.request.individualCustomers.CreateIndividualCustomerRequest;
 import com.example.shoppingDemo.business.request.individualCustomers.DeleteIndividualCustomerRequest;
 import com.example.shoppingDemo.business.request.individualCustomers.UpdateIndividualCustomerRequest;
@@ -13,6 +14,8 @@ import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
 import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.IndividualCustomerRepository;
 import com.example.shoppingDemo.entities.concretes.IndividualCustomer;
+import com.example.shoppingDemo.entities.concretes.State;
+import com.example.shoppingDemo.entities.concretes.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,21 +24,26 @@ import java.util.stream.Collectors;
 @Service
 public class IndividualCustomerManager implements IndividualCustomerService {
     private IndividualCustomerRepository individualCustomerRepository;
-    private CustomerService customerService;
-    public IndividualCustomerManager(IndividualCustomerRepository individualCustomerRepository,CustomerService customerService){
+    private StateService stateService;
+    public IndividualCustomerManager(IndividualCustomerRepository individualCustomerRepository,StateService stateService){
         this.individualCustomerRepository=individualCustomerRepository;
-        this.customerService = customerService;
+        this.stateService = stateService;
     }
     @Override
     public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
-        this.customerService.add(createIndividualCustomerRequest.getCreateCustomerRequest());
+        State state = this.stateService.getState(1);
         IndividualCustomer individualCustomer=IndividualCustomer.builder()
                 .nationalityId(createIndividualCustomerRequest.getNationalityId())
                 .firstName(createIndividualCustomerRequest.getFirstName())
                 .lastName(createIndividualCustomerRequest.getLastName())
                 .birthDate(createIndividualCustomerRequest.getBirthDate())
                 .gender(createIndividualCustomerRequest.getGender())
+                .email(createIndividualCustomerRequest.getCreateCustomerRequest().getCreateUserRequest().getEmail())
+                .password(createIndividualCustomerRequest.getCreateCustomerRequest().getCreateUserRequest().getPassword())
+                .state(state)
+                .customerNumber(createIndividualCustomerRequest.getCreateCustomerRequest().getCustomerNumber())
                 .build();
+
         this.individualCustomerRepository.save(individualCustomer);
         return new SuccessResult("INDIVIDUAL.CUSTOMER.ADDED");
     }
