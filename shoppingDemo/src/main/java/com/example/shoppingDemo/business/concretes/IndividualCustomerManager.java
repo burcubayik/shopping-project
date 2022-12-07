@@ -44,6 +44,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 .customerNumber(createIndividualCustomerRequest.getCreateCustomerRequest().getCustomerNumber())
                 .build();
 
+        //user->customer->individualCustomer
+
         this.individualCustomerRepository.save(individualCustomer);
         return new SuccessResult("INDIVIDUAL.CUSTOMER.ADDED");
     }
