@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.Date;
 @Data
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class IndividualCustomer extends Customer {
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "birthdate")
-    private Date birthDate;
+    private LocalDate birthDate;
     @Column(name = "gender")
     private String gender;//enum kullan
 

@@ -41,6 +41,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
     @Override
     public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
+       checkIfRealIndividualCustomer(createIndividualCustomerRequest);
         State state = this.stateService.getState(1);
         IndividualCustomer individualCustomer=IndividualCustomer.builder()
                 .nationalityId(createIndividualCustomerRequest.getNationalityId())
@@ -54,7 +55,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 .customerNumber(createIndividualCustomerRequest.getCreateCustomerRequest().getCustomerNumber())
                 .build();
 
-       checkIfRealIndividualCustomer(individualCustomer);
+
         //user->customer->individualCustomer
 
         this.individualCustomerRepository.save(individualCustomer);
@@ -112,8 +113,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         return new SuccessDataResult<>(response);
     }
 
-    private void  checkIfRealIndividualCustomer(IndividualCustomer individualCustomer){
-        if(!this.userCheckService.checkIfRealPerson(individualCustomer)){
+    private void  checkIfRealIndividualCustomer(CreateIndividualCustomerRequest createIndividualCustomerRequest){
+        if(!this.userCheckService.checkIfRealPerson(createIndividualCustomerRequest)){
             throw new BusinessException("COULD.NOT.INDIVIDUAL.CUSTOMER.ADDED");
         }
     }
