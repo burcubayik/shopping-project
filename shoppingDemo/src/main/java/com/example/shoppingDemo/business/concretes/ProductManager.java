@@ -59,7 +59,9 @@ public class ProductManager implements ProductService {
 
     @Override
     public Result delete(DeleteProductRequest deleteProductRequest) {
-        return null;
+        Product product = this.productRepository.findById(deleteProductRequest.getId()).get();
+        this.productRepository.delete(product);
+        return new SuccessResult("DELETED.PRODUCT") ;
     }
 
     @Override

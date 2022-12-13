@@ -53,7 +53,9 @@ public class ProductPropertyManager implements ProductPropertyService {
 
     @Override
     public Result delete(DeleteProductPropertyRequest deleteProductPropertyRequest) {
-        return null;
+        ProductProperty productProperty = this.productPropertyRepository.findById(deleteProductPropertyRequest.getId()).get();
+        this.productPropertyRepository.delete(productProperty);
+        return new SuccessResult("PRODUCT.PROPERTY.DELETED");
     }
 
     @Override

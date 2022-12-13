@@ -1,16 +1,10 @@
 package com.example.shoppingDemo.api.controllers;
 
-import com.example.shoppingDemo.business.abstracts.UserService;
 import com.example.shoppingDemo.business.request.users.CreateUserRequest;
 import com.example.shoppingDemo.business.request.users.DeleteUserRequest;
 import com.example.shoppingDemo.business.request.users.UpdateUserRequest;
-import com.example.shoppingDemo.business.response.users.GetAllUserResponse;
-import com.example.shoppingDemo.business.response.users.GeyByUserResponse;
-import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")

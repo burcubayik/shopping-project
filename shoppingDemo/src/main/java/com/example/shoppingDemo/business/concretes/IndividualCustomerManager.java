@@ -65,7 +65,10 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
     @Override
     public Result delete(DeleteIndividualCustomerRequest deleteIndividualCustomerRequest) {
-        return null;
+        State state = this.stateService.getState(2);
+        IndividualCustomer individualCustomer = this.individualCustomerRepository.findById(deleteIndividualCustomerRequest.getIndividualCustomerId()).get();
+        individualCustomer.setState(state);
+        return new SuccessResult("DELETED.INDIVIDUAL.CUSTOMER");
     }
 
     @Override

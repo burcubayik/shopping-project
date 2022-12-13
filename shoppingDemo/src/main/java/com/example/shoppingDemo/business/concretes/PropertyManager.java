@@ -54,7 +54,9 @@ public class PropertyManager implements PropertyService {
 
     @Override
     public Result delete(DeletePropertyRequest deletePropertyRequest) {
-        return null;
+        Property property = this.propertyRepository.findById(deletePropertyRequest.getId()).get();
+        this.propertyRepository.delete(property);
+        return new SuccessResult("DELETED.PROPERTY");
     }
 
     @Override

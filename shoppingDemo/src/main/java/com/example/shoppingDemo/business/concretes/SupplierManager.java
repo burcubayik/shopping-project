@@ -1,7 +1,7 @@
 package com.example.shoppingDemo.business.concretes;
 
+import com.example.shoppingDemo.business.abstracts.StateService;
 import com.example.shoppingDemo.business.abstracts.SupplierService;
-import com.example.shoppingDemo.business.abstracts.UserService;
 import com.example.shoppingDemo.business.request.suppliers.CreateSupplierRequest;
 import com.example.shoppingDemo.business.request.suppliers.DeleteSupplierRequest;
 import com.example.shoppingDemo.business.request.suppliers.UpdateSupplierRequest;
@@ -12,6 +12,7 @@ import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
 import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.SupplierRepository;
+import com.example.shoppingDemo.entities.concretes.State;
 import com.example.shoppingDemo.entities.concretes.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,19 +23,21 @@ import java.util.stream.Collectors;
 @Service
 public class SupplierManager implements SupplierService {
     private SupplierRepository supplierRepository;
-    private UserService userService;
+    private StateService stateService;
+
     @Autowired
-    public SupplierManager(SupplierRepository supplierRepository,UserService userService) {
+    public SupplierManager(SupplierRepository supplierRepository,StateService stateService) {
         this.supplierRepository = supplierRepository;
-        this.userService= userService;
+        this.stateService=stateService;
     }
 
     @Override
     public Result add(CreateSupplierRequest createSupplierRequest) {
-        this.userService.add(createSupplierRequest.getCreateUserRequest());
+       State state =this.stateService.getState(1);
         Supplier supplier = Supplier.builder()
                 .name(createSupplierRequest.getName())
                 .point(createSupplierRequest.getPoint())
+                .state(state)
                 .build();
         this.supplierRepository.save(supplier);
         return new SuccessResult("Added Supplier");
@@ -46,13 +49,16 @@ public class SupplierManager implements SupplierService {
         supplier.setName(supplier.getName());
         supplier.setPoint(supplier.getPoint());
         this.supplierRepository.save(supplier);
-        return new SuccessResult("UPDATED.SUPPLİER");
+        return new SuccessResult("UPDATED.SUPPLIER");
 
     }
 
     @Override
     public Result delete(DeleteSupplierRequest deleteSupplierRequest) {
-        return null;
+        State state =this.stateService.getState(2);
+        Supplier supplier=this.supplierRepository.findById(deleteSupplierRequest.getId()).get();
+        supplier.setState(state);
+        return new SuccessResult("DELETED.SUPPLIER");
     }
 
     @Override

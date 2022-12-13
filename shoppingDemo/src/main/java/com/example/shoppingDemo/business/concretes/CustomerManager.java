@@ -1,16 +1,10 @@
 package com.example.shoppingDemo.business.concretes;
 
 import com.example.shoppingDemo.business.abstracts.CustomerService;
-import com.example.shoppingDemo.business.abstracts.UserService;
-import com.example.shoppingDemo.business.request.customers.CreateCustomerRequest;
-import com.example.shoppingDemo.business.request.customers.DeleteCustomerRequest;
-import com.example.shoppingDemo.business.request.customers.UpdateCustomerRequest;
 import com.example.shoppingDemo.business.response.customers.GetAllCustomersResponse;
 import com.example.shoppingDemo.business.response.customers.GetByCustomerResponse;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
-import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
-import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.CustomerRepository;
 import com.example.shoppingDemo.entities.concretes.Customer;
 import org.springframework.stereotype.Service;
