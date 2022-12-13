@@ -45,7 +45,16 @@ public class ProductManager implements ProductService {
 
     @Override
     public Result update(UpdateProductRequest updateProductRequest) {
-        return null;
+        Category category=this.productRepository.getByCategory_Id(updateProductRequest.getCategoryId());
+        Supplier supplier=this.productRepository.getBySupplierId(updateProductRequest.getSupplierId());
+        Product product=this.productRepository.findById(updateProductRequest.getId()).get();
+        product.setName(updateProductRequest.getName());
+        product.setDetail(updateProductRequest.getDetail());
+        product.setUnitPrice(updateProductRequest.getUnitPrice());
+        product.setCategory(category);
+        product.setSupplier(supplier);
+        this.productRepository.save(product);
+        return new SuccessResult("UPDATED.PRODUCT");
     }
 
     @Override

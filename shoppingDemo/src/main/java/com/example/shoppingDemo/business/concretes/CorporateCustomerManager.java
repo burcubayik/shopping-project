@@ -44,7 +44,11 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
     @Override
     public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest) {
-        return null;
+        CorporateCustomer corporateCustomer=this.corporateCustomerRepository.findById(updateCorporateCustomerRequest.getCorporateCustomerId()).get();
+        corporateCustomer.setTaxNumber(updateCorporateCustomerRequest.getTaxNumber());
+        corporateCustomer.setCompanyName(updateCorporateCustomerRequest.getCompanyName());
+        this.corporateCustomerRepository.save(corporateCustomer);
+        return new SuccessResult("UPDATED.CORPORATE.CUSTOMER");
     }
 
     @Override

@@ -27,25 +27,7 @@ public class CustomerManager implements CustomerService {
         this.customerRepository=customerRepository;
         this.userService = userService;
     }
-    @Override
-    public Result add(CreateCustomerRequest createCustomerRequest) {
-        this.userService.add(createCustomerRequest.getCreateUserRequest());  //customer userServis **
-        Customer customer=Customer.builder()
-                .customerNumber(createCustomerRequest.getCustomerNumber())
-                .build();
-        this.customerRepository.save(customer);
-        return new SuccessResult("CUSTOMER.ADDED");
-    }
 
-    @Override
-    public Result update(UpdateCustomerRequest updateCustomerRequest) {
-        return null;
-    }
-
-    @Override
-    public Result delete(DeleteCustomerRequest deleteCustomerRequest) {
-        return null;
-    }
 
     @Override
     public DataResult<List<GetAllCustomersResponse>> getAll() {

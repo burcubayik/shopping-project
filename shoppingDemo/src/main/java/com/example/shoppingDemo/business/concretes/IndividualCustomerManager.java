@@ -52,7 +52,15 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
     @Override
     public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest) {
-        return null;
+
+        IndividualCustomer individualCustomer=this.individualCustomerRepository.findById(updateIndividualCustomerRequest.getIndividualCustomerId()).get();
+        individualCustomer.setNationalityId(updateIndividualCustomerRequest.getNationalityId());
+        individualCustomer.setFirstName(updateIndividualCustomerRequest.getFirstName());
+        individualCustomer.setLastName(updateIndividualCustomerRequest.getLastName());
+        individualCustomer.setBirthDate(updateIndividualCustomerRequest.getBirthDate());
+        individualCustomer.setGender(updateIndividualCustomerRequest.getGender());
+        this.individualCustomerRepository.save(individualCustomer);
+        return new SuccessResult("UPDATED.INDIVIDUAL.CUSTOMER");
     }
 
     @Override
@@ -74,6 +82,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 .build()).collect(Collectors.toList());
         return new SuccessDataResult<>(response);
     }
+
 
     @Override
     public DataResult<GetByIndividualCustomerResponse> getById(int individualCustomerId) {

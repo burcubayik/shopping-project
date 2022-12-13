@@ -45,7 +45,11 @@ public class PropertyManager implements PropertyService {
 
     @Override
     public Result update(UpdatePropertyRequest updatePropertyRequest) {
-        return null;
+        Property property=this.propertyRepository.findById(updatePropertyRequest.getId()).get();
+        property.setName(updatePropertyRequest.getName());
+        property.setDetail(updatePropertyRequest.getDetail());
+        this.propertyRepository.save(property);
+        return new SuccessResult("UPDATED.PROPERTY");
     }
 
     @Override

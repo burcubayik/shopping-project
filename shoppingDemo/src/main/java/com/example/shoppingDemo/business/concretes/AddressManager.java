@@ -50,8 +50,12 @@ public class AddressManager implements AddressService {
     @Override
     public Result update(UpdateAddressRequest updateAddressRequest) {
 
+        City city=this.addressRepository.getByCity_Id(updateAddressRequest.getCityId());
+        Address address=this.addressRepository.findById(updateAddressRequest.getId()).get();
+        address.setCity(city);
+        this.addressRepository.save(address);
 
-        return null;
+        return new SuccessResult("UPDATED.ADDRESS");
     }
 
     @Override

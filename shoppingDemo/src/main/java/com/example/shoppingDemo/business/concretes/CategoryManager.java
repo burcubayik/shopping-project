@@ -40,7 +40,12 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public Result update(UpdateCategoryRequest updateCategoryRequest) {
-        return null;
+        Category parentCategory=this.categoryRepository.getByParentCategoryId(updateCategoryRequest.getParentCategoryId());
+        Category category=this.categoryRepository.findById(updateCategoryRequest.getId()).get();
+        category.setName(updateCategoryRequest.getName());
+        category.setParentCategory(parentCategory);
+       this.categoryRepository.save(category);
+        return new SuccessResult("UPDATED.CATEGORY");
     }
 
     @Override
