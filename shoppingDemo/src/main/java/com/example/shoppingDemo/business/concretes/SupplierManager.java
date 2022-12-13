@@ -42,7 +42,12 @@ public class SupplierManager implements SupplierService {
 
     @Override
     public Result update(UpdateSupplierRequest updateSupplierRequest) {
-        return null;
+        Supplier supplier=this.supplierRepository.findById(updateSupplierRequest.getId()).get();
+        supplier.setName(supplier.getName());
+        supplier.setPoint(supplier.getPoint());
+        this.supplierRepository.save(supplier);
+        return new SuccessResult("UPDATED.SUPPLİER");
+
     }
 
     @Override

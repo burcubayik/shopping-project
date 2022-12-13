@@ -47,7 +47,11 @@ public class CartManager implements CartService {
 
     @Override
     public Result update(UpdateCartRequest updateCartRequest) {
-        return null;
+        Product product=this.cartRepository.getByProduct_Id(updateCartRequest.getProductId());
+        Cart cart=this.cartRepository.findById(updateCartRequest.getId()).get();
+        cart.setProduct(product);
+        this.cartRepository.save(cart);
+        return new SuccessResult("UPDATED.CART");
     }
 
     @Override
