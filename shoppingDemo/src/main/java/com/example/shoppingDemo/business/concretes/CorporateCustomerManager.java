@@ -2,6 +2,7 @@ package com.example.shoppingDemo.business.concretes;
 
 import com.example.shoppingDemo.business.abstracts.CorporateCustomerService;
 import com.example.shoppingDemo.business.abstracts.CustomerService;
+import com.example.shoppingDemo.business.abstracts.StateService;
 import com.example.shoppingDemo.business.request.corporateCustomers.CreateCorporateCustomerRequest;
 import com.example.shoppingDemo.business.request.corporateCustomers.DeleteCorporateCustomerResquest;
 import com.example.shoppingDemo.business.request.corporateCustomers.UpdateCorporateCustomerRequest;
@@ -13,6 +14,7 @@ import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
 import com.example.shoppingDemo.core.utilities.results.SuccessResult;
 import com.example.shoppingDemo.dataAccess.abstracts.CorporateCustomerRepository;
 import com.example.shoppingDemo.entities.concretes.CorporateCustomer;
+import com.example.shoppingDemo.entities.concretes.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +28,13 @@ public class CorporateCustomerManager implements CorporateCustomerService {
     private CorporateCustomerRepository corporateCustomerRepository;
     private CustomerService customerService;
 
-    public CorporateCustomerManager(CorporateCustomerRepository corporateCustomerRepository,CustomerService customerService) {
+    private StateService stateService;
+
+    public CorporateCustomerManager(CorporateCustomerRepository corporateCustomerRepository, CustomerService customerService,
+                                    StateService stateService) {
         this.corporateCustomerRepository = corporateCustomerRepository;
-        this.customerService=customerService;
+        this.customerService = customerService;
+        this.stateService = stateService;
     }
 
     @Override
@@ -53,7 +59,12 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
     @Override
     public Result delete(DeleteCorporateCustomerResquest deleteCorporateCustomerResquest) {
-        return null;
+        State state=this.stateService.getState(2);
+        CorporateCustomer corporateCustomer=this.corporateCustomerRepository.findById(deleteCorporateCustomerResquest.getCorporateCustomerId()).get();
+        corporateCustomer.setState(state);
+        this.corporateCustomerRepository.delete(corporateCustomer);
+
+        return new SuccessResult("DELETED.CORPORATE.CUSTOMER");
     }
 
     @Override
