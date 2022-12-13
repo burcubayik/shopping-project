@@ -24,20 +24,7 @@ public class CustomersController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody CreateCustomerRequest createCustomerRequest) {
-        return this.customerService.add(createCustomerRequest);
-    }
 
-    @PutMapping("/update")
-    public Result update(@RequestBody UpdateCustomerRequest updateCustomerRequest) {
-        return this.customerService.update(updateCustomerRequest);
-    }
-
-    @DeleteMapping("/delete")
-    public Result delete(@RequestBody DeleteCustomerRequest deleteCustomerRequest) {
-        return this.customerService.delete(deleteCustomerRequest);
-    }
 
     @GetMapping("/getall")
     public DataResult<List<GetAllCustomersResponse>> getAll() {

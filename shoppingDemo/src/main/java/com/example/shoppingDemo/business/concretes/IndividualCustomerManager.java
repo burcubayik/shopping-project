@@ -3,11 +3,13 @@ package com.example.shoppingDemo.business.concretes;
 import com.example.shoppingDemo.business.abstracts.CustomerService;
 import com.example.shoppingDemo.business.abstracts.IndividualCustomerService;
 import com.example.shoppingDemo.business.abstracts.StateService;
+import com.example.shoppingDemo.business.abstracts.UserCheckService;
 import com.example.shoppingDemo.business.request.individualCustomers.CreateIndividualCustomerRequest;
 import com.example.shoppingDemo.business.request.individualCustomers.DeleteIndividualCustomerRequest;
 import com.example.shoppingDemo.business.request.individualCustomers.UpdateIndividualCustomerRequest;
 import com.example.shoppingDemo.business.response.individualCustomers.GetAllIndividualCustomersResponse;
 import com.example.shoppingDemo.business.response.individualCustomers.GetByIndividualCustomerResponse;
+import com.example.shoppingDemo.core.utilities.exceptions.BusinessException;
 import com.example.shoppingDemo.core.utilities.results.DataResult;
 import com.example.shoppingDemo.core.utilities.results.Result;
 import com.example.shoppingDemo.core.utilities.results.SuccessDataResult;
@@ -16,6 +18,7 @@ import com.example.shoppingDemo.dataAccess.abstracts.IndividualCustomerRepositor
 import com.example.shoppingDemo.entities.concretes.IndividualCustomer;
 import com.example.shoppingDemo.entities.concretes.State;
 import com.example.shoppingDemo.entities.concretes.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,10 +28,17 @@ import java.util.stream.Collectors;
 public class IndividualCustomerManager implements IndividualCustomerService {
     private IndividualCustomerRepository individualCustomerRepository;
     private StateService stateService;
-    public IndividualCustomerManager(IndividualCustomerRepository individualCustomerRepository,StateService stateService){
-        this.individualCustomerRepository=individualCustomerRepository;
+
+    private UserCheckService userCheckService;
+
+    @Autowired
+    public IndividualCustomerManager(IndividualCustomerRepository individualCustomerRepository, StateService stateService,
+                                     UserCheckService userCheckService) {
+        this.individualCustomerRepository = individualCustomerRepository;
         this.stateService = stateService;
+        this.userCheckService = userCheckService;
     }
+
     @Override
     public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
         State state = this.stateService.getState(1);
@@ -44,6 +54,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 .customerNumber(createIndividualCustomerRequest.getCreateCustomerRequest().getCustomerNumber())
                 .build();
 
+       checkIfRealIndividualCustomer(individualCustomer);
         //user->customer->individualCustomer
 
         this.individualCustomerRepository.save(individualCustomer);
@@ -99,5 +110,11 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 .gender(result.getGender())
                 .build();
         return new SuccessDataResult<>(response);
+    }
+
+    private void  checkIfRealIndividualCustomer(IndividualCustomer individualCustomer){
+        if(!this.userCheckService.checkIfRealPerson(individualCustomer)){
+            throw new BusinessException("COULD.NOT.INDIVIDUAL.CUSTOMER.ADDED");
+        }
     }
 }

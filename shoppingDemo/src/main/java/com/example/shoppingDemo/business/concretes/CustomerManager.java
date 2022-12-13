@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerManager implements CustomerService {
     private CustomerRepository customerRepository;
-    private UserService userService;
 
-    public CustomerManager(CustomerRepository customerRepository,UserService userService){
+
+    public CustomerManager(CustomerRepository customerRepository){
         this.customerRepository=customerRepository;
-        this.userService = userService;
+
     }
 
 

@@ -50,7 +50,9 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public Result delete(DeleteCategoryRequest deleteCategoryRequest) {
-        return null;
+        Category category=this.categoryRepository.findById(deleteCategoryRequest.getId()).get();
+        this.categoryRepository.delete(category);
+        return new SuccessResult("DELETED.CATEGORY");
     }
 
     @Override

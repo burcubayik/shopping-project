@@ -60,7 +60,12 @@ public class AddressManager implements AddressService {
 
     @Override
     public Result delete(DeleteAddressRequest deleteAddressRequest) {
-        return null;
+        State state=this.stateService.getState(2);
+        Address address=this.addressRepository.findById(deleteAddressRequest.getId()).get();
+        address.setState(state);
+        this.addressRepository.delete(address);
+
+        return new SuccessResult("DELETED.ADDRESS");
     }
 
     @Override
