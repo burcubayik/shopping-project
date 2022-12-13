@@ -33,7 +33,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
     @Override
     public Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest) {
-        this.customerService.add(createCorporateCustomerRequest.getCreateCustomerRequest()); //corporateCustomer--customer
+
         CorporateCustomer corporateCustomer=CorporateCustomer.builder()
                 .taxNumber(createCorporateCustomerRequest.getTaxNumber())
                 .companyName(createCorporateCustomerRequest.getCompanyName())
