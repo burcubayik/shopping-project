@@ -42,7 +42,13 @@ public class ProductPropertyManager implements ProductPropertyService {
 
     @Override
     public Result update(UpdateProductPropertyRequest updateProductPropertyRequest) {
-        return null;
+        ProductProperty productProperty = this.productPropertyRepository.findById(updateProductPropertyRequest.getId()).get();
+        Property property=this.productPropertyRepository.getByPropertyId(updateProductPropertyRequest.getPropertyId());
+        Product product=this.productPropertyRepository.getByProduct_Id(updateProductPropertyRequest.getProductId());
+        productProperty.setProduct(product);
+        productProperty.setProperty(property);
+
+        return new SuccessResult("PRODUCT.PROPERTY.UPDATED");
     }
 
     @Override
