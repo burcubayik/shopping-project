@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name="states")
 public class State {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
     @Column(name = "name")
@@ -24,4 +24,6 @@ public class State {
 
     @OneToMany(mappedBy="state")
     private List<Address> addresses;
+    @OneToMany(mappedBy = "order_status")
+    private List<Order> orders;
 }

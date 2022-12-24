@@ -17,9 +17,11 @@ import java.util.List;
 public class Customer extends User{
     @Column(name = "customer_id", insertable = false, updatable = false)
     private int customerId;
+
     @Column(name = "customer_number")
     private String customerNumber;
+
     @OneToMany(mappedBy = "customer")
-    private List<Cart> carts;
+    private  List<Order> orders;
 
 }

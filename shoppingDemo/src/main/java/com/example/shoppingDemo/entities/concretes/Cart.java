@@ -15,12 +15,10 @@ import javax.persistence.*;
 @Table(name = "carts")
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

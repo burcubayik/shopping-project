@@ -12,18 +12,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "product_properties")
-public class ProductProperty {
+@Table(name = "invoice")
+public class Invoice {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @ManyToOne()
-    @JoinColumn(name = "product_id")
-    private Product product;
-    @ManyToOne()
-    @JoinColumn(name = "property_id")
-    private Property property;
-
 
 }

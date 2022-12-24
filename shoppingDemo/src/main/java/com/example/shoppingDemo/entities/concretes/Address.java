@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Address {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name = "detail")
     private String detail;
