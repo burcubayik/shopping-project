@@ -24,6 +24,6 @@ public class State {
 
     @OneToMany(mappedBy="state")
     private List<Address> addresses;
-    @OneToMany(mappedBy = "order_status")
+    @OneToMany(mappedBy = "orderStatus")
     private List<Order> orders;
 }

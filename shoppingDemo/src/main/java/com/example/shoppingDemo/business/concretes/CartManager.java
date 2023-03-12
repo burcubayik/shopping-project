@@ -33,10 +33,9 @@ public class CartManager implements CartService {
     @Override
     public Result add(CreateCartRequest createCartRequest) {
 
-        Customer customer =this.cartRepository.getByCustomerId(createCartRequest.getCustomerId());
+      //  Customer customer =this.cartRepository.getByCustomerId(createCartRequest.getCustomerId());
         Product product=this.cartRepository.getByProduct_Id(createCartRequest.getProductId());
         Cart cart=Cart.builder()
-                .customer(customer)
                 .product(product)
                 .build();
 
@@ -66,7 +65,6 @@ public class CartManager implements CartService {
         List<Cart> result=this.cartRepository.findAll();
         List<GetAllCartsResponse> response=result.stream().map(cart -> GetAllCartsResponse.builder()
                 .id(cart.getId())
-                .customerId(cart.getCustomer().getCustomerId())
                 .productId(cart.getProduct().getId())
                 .build()).collect(Collectors.toList());
 

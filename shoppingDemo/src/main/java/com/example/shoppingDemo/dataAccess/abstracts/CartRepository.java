@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CartRepository extends JpaRepository<Cart,Integer> {
 
-    Customer getByCustomerId(int customerId);
+
+
     Product getByProduct_Id(int productId);
 }

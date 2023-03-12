@@ -52,7 +52,6 @@ public class IndividualCustomerManager implements IndividualCustomerService {
                 .email(createIndividualCustomerRequest.getCreateCustomerRequest().getCreateUserRequest().getEmail())
                 .password(createIndividualCustomerRequest.getCreateCustomerRequest().getCreateUserRequest().getPassword())
                 .state(state)
-                .customerNumber(createIndividualCustomerRequest.getCreateCustomerRequest().getCustomerNumber())
                 .build();
 
 

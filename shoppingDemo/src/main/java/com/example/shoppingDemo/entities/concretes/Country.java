@@ -19,6 +19,8 @@ public class Country {
     private int id;
     @Column(name = "name")
     private String name;
+    @Column(name = "iso")
+    private String iso;
 
     @OneToMany(mappedBy = "country")
     private List<City> cities;
