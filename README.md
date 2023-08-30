@@ -2,4 +2,4 @@
 
 ##Partnership
 
-<a href="https://github.com/Burcubayik">Burcu Bayık</a>
+<a href="https://github.com/Burcubayik">Burcu Bayık</a>  
